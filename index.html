@@ -186,7 +186,7 @@
       </div>
       <div class="gda-credits">GameDevAgent &middot; Leyendas colombianas</div>
     </div>
-    <script src="Build/13ca1e64c3da0de532f8cbd3d2b73442.loader.js"></script>
+    <script src="Build/f98fb5b4b7bfc11d198edb920c7c8a09.loader.js"></script>
     <script>
       function unityShowBanner(msg, type) {
         var banner = document.querySelector("#unity-warning");
@@ -411,7 +411,7 @@
 
       // Texture formats: the release ships the game data twice (DXT for desktop GPUs, ASTC for phones and tablets).
       // Each device downloads only one of them. WebBuildTools fills GDA_ASTC_DATA; empty = single format build.
-      var GDA_ASTC_DATA = "3161bf0a33869745906ddc8be19b8776.data.unityweb";
+      var GDA_ASTC_DATA = "2843994c3908001940af1e600d81cca1.data.unityweb";
       function gdaAstcSupported() {
         try {
           var c = document.createElement("canvas");
@@ -422,7 +422,7 @@
 
       // Game data split in parts (each below the host's file size limit). WebBuildTools fills GDA_DATA_PARTS:
       // { "<data file>": { bytes: N, parts: ["<data file>.part0", ...] } }. null = the data is a single file.
-      var GDA_DATA_PARTS = {"3161bf0a33869745906ddc8be19b8776.data.unityweb":{"bytes":48932593,"parts":["3161bf0a33869745906ddc8be19b8776.data.unityweb.part0","3161bf0a33869745906ddc8be19b8776.data.unityweb.part1"]},"9b60b820203897c5f80d6666aeb23c9c.data.unityweb":{"bytes":48949023,"parts":["9b60b820203897c5f80d6666aeb23c9c.data.unityweb.part0","9b60b820203897c5f80d6666aeb23c9c.data.unityweb.part1"]}};
+      var GDA_DATA_PARTS = {"2843994c3908001940af1e600d81cca1.data.unityweb":{"bytes":85329397,"parts":["2843994c3908001940af1e600d81cca1.data.unityweb.part0","2843994c3908001940af1e600d81cca1.data.unityweb.part1","2843994c3908001940af1e600d81cca1.data.unityweb.part2","2843994c3908001940af1e600d81cca1.data.unityweb.part3"]},"803013dc96d40e984285bb22b67c927b.data.unityweb":{"bytes":85322561,"parts":["803013dc96d40e984285bb22b67c927b.data.unityweb.part0","803013dc96d40e984285bb22b67c927b.data.unityweb.part1","803013dc96d40e984285bb22b67c927b.data.unityweb.part2","803013dc96d40e984285bb22b67c927b.data.unityweb.part3"]}};
 
       function gdaFetchParts(entry, onProgress) {
         var loaded = entry.parts.map(function () { return 0; });
@@ -462,12 +462,12 @@
       function gdaStart() {
         var gdaForced = /[?&]gdaTex=(astc|dxt)/.exec(location.search); // tests only
         var gdaUseAstc = !!GDA_ASTC_DATA && (gdaForced ? gdaForced[1] === "astc" : gdaAstcSupported());
-        var dataName = gdaUseAstc ? GDA_ASTC_DATA : "9b60b820203897c5f80d6666aeb23c9c.data.unityweb";
+        var dataName = gdaUseAstc ? GDA_ASTC_DATA : "803013dc96d40e984285bb22b67c927b.data.unityweb";
         var entry = GDA_DATA_PARTS && GDA_DATA_PARTS[dataName];
         window.GDA_report("start", "textures " + (gdaUseAstc ? "ASTC" : "DXT/default") + ", data " + (entry ? entry.parts.length + " parts" : "single file"));
         if (!entry) { gdaCreate("Build/" + dataName, 0); return; }
         // Start the code download at the same time (the Unity loader then finds it in the HTTP cache).
-        try { fetch("Build/c373c30cb0af84a26126c18898cc8327.framework.js.unityweb"); fetch("Build/e63051354e96fbfb2f84def15b658d53.wasm.unityweb"); } catch (e) {}
+        try { fetch("Build/c373c30cb0af84a26126c18898cc8327.framework.js.unityweb"); fetch("Build/72db2b6c1a45e66ed261d28a70b68c4d.wasm.unityweb"); } catch (e) {}
         gdaFetchParts(entry, function (f) { gdaShowProgress(0.8 * f); }).then(function (blobUrl) {
           window.GDA_report("parts", "data joined");
           gdaCreate(blobUrl, 0.8);
@@ -485,7 +485,7 @@
         arguments: [],
         dataUrl: dataUrl,
         frameworkUrl: "Build/c373c30cb0af84a26126c18898cc8327.framework.js.unityweb",
-        codeUrl: "Build/e63051354e96fbfb2f84def15b658d53.wasm.unityweb",
+        codeUrl: "Build/72db2b6c1a45e66ed261d28a70b68c4d.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "GameDevAgent Tower Defense",
