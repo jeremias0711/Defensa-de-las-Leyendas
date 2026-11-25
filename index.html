@@ -186,7 +186,7 @@
       </div>
       <div class="gda-credits">GameDevAgent &middot; Leyendas colombianas</div>
     </div>
-    <script src="Build/6286f4a726d3df9f6384d5d4dd098689.loader.js"></script>
+    <script src="Build/ae387228276ed04905750cdf51ea8306.loader.js"></script>
     <script>
       function unityShowBanner(msg, type) {
         var banner = document.querySelector("#unity-warning");
@@ -411,7 +411,7 @@
 
       // Texture formats: the release ships the game data twice (DXT for desktop GPUs, ASTC for phones and tablets).
       // Each device downloads only one of them. WebBuildTools fills GDA_ASTC_DATA; empty = single format build.
-      var GDA_ASTC_DATA = "5181822936ff09e9ba0e4bd00b996357.data.unityweb";
+      var GDA_ASTC_DATA = "6c40705f1a155406e5961d02c81f36e4.data.unityweb";
       function gdaAstcSupported() {
         try {
           var c = document.createElement("canvas");
@@ -422,7 +422,7 @@
 
       // Game data split in parts (each below the host's file size limit). WebBuildTools fills GDA_DATA_PARTS:
       // { "<data file>": { bytes: N, parts: ["<data file>.part0", ...] } }. null = the data is a single file.
-      var GDA_DATA_PARTS = {"5181822936ff09e9ba0e4bd00b996357.data.unityweb":{"bytes":85318034,"parts":["5181822936ff09e9ba0e4bd00b996357.data.unityweb.part0","5181822936ff09e9ba0e4bd00b996357.data.unityweb.part1","5181822936ff09e9ba0e4bd00b996357.data.unityweb.part2","5181822936ff09e9ba0e4bd00b996357.data.unityweb.part3"]},"626817dca1f9deb913f95515ac5d7ac4.data.unityweb":{"bytes":85313682,"parts":["626817dca1f9deb913f95515ac5d7ac4.data.unityweb.part0","626817dca1f9deb913f95515ac5d7ac4.data.unityweb.part1","626817dca1f9deb913f95515ac5d7ac4.data.unityweb.part2","626817dca1f9deb913f95515ac5d7ac4.data.unityweb.part3"]}};
+      var GDA_DATA_PARTS = {"3f8733b961be3bce99b40adf288ce313.data.unityweb":{"bytes":89844111,"parts":["3f8733b961be3bce99b40adf288ce313.data.unityweb.part0","3f8733b961be3bce99b40adf288ce313.data.unityweb.part1","3f8733b961be3bce99b40adf288ce313.data.unityweb.part2","3f8733b961be3bce99b40adf288ce313.data.unityweb.part3"]},"6c40705f1a155406e5961d02c81f36e4.data.unityweb":{"bytes":89847376,"parts":["6c40705f1a155406e5961d02c81f36e4.data.unityweb.part0","6c40705f1a155406e5961d02c81f36e4.data.unityweb.part1","6c40705f1a155406e5961d02c81f36e4.data.unityweb.part2","6c40705f1a155406e5961d02c81f36e4.data.unityweb.part3"]}};
 
       function gdaFetchParts(entry, onProgress) {
         var loaded = entry.parts.map(function () { return 0; });
@@ -462,12 +462,12 @@
       function gdaStart() {
         var gdaForced = /[?&]gdaTex=(astc|dxt)/.exec(location.search); // tests only
         var gdaUseAstc = !!GDA_ASTC_DATA && (gdaForced ? gdaForced[1] === "astc" : gdaAstcSupported());
-        var dataName = gdaUseAstc ? GDA_ASTC_DATA : "626817dca1f9deb913f95515ac5d7ac4.data.unityweb";
+        var dataName = gdaUseAstc ? GDA_ASTC_DATA : "3f8733b961be3bce99b40adf288ce313.data.unityweb";
         var entry = GDA_DATA_PARTS && GDA_DATA_PARTS[dataName];
         window.GDA_report("start", "textures " + (gdaUseAstc ? "ASTC" : "DXT/default") + ", data " + (entry ? entry.parts.length + " parts" : "single file"));
         if (!entry) { gdaCreate("Build/" + dataName, 0); return; }
         // Start the code download at the same time (the Unity loader then finds it in the HTTP cache).
-        try { fetch("Build/c373c30cb0af84a26126c18898cc8327.framework.js.unityweb"); fetch("Build/ab58794bbc6f9328f427288086de3895.wasm.unityweb"); } catch (e) {}
+        try { fetch("Build/c373c30cb0af84a26126c18898cc8327.framework.js.unityweb"); fetch("Build/eeafaa776039f284a2a39d54e42193a9.wasm.unityweb"); } catch (e) {}
         gdaFetchParts(entry, function (f) { gdaShowProgress(0.8 * f); }).then(function (blobUrl) {
           window.GDA_report("parts", "data joined");
           gdaCreate(blobUrl, 0.8);
@@ -485,7 +485,7 @@
         arguments: [],
         dataUrl: dataUrl,
         frameworkUrl: "Build/c373c30cb0af84a26126c18898cc8327.framework.js.unityweb",
-        codeUrl: "Build/ab58794bbc6f9328f427288086de3895.wasm.unityweb",
+        codeUrl: "Build/eeafaa776039f284a2a39d54e42193a9.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "GameDevAgent Tower Defense",
